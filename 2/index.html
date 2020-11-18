@@ -49,6 +49,7 @@
         })
         function sec() {
             json.then((data) => {
+                let check = false
                 let name = document.querySelector('input').value
                 let divRow1 = document.createElement('div')
                 let con = document.querySelector('#mic')
@@ -67,7 +68,7 @@
                     if (name === data.tracks.items[i].album.name) {
                         console.log(data.tracks.items[i].album.name)
                         let divCol = document.createElement('div')
-                        divCol.setAttribute("class", "col-5 ml-5 border border-dark px-0")
+                        divCol.setAttribute("class", "col-3 ml-5 border border-dark px-0")
                         divImg = document.createElement('img')
                         divImg.setAttribute("src", data.tracks.items[i].album.images[0].url)
                         divImg.setAttribute("class", "pic")
@@ -81,12 +82,12 @@
                         text.innerHTML = "Avaliablle : " + data.tracks.items[i].album.available_markets.length + " coutries"
                         divCol.appendChild(text.cloneNode(true))
                         divRow1.appendChild(divCol.cloneNode(true))
-                        break
+                        check = !check
                     }
                     else if (name === data.tracks.items[i].album.artists[0].name) {
                         console.log(data.tracks.items[i].album.artists[0].name)
                         let divCol = document.createElement('div')
-                        divCol.setAttribute("class", "col-5 ml-5 border border-dark px-0")
+                        divCol.setAttribute("class", "col-3 ml-5 border border-dark px-0")
                         divImg = document.createElement('img')
                         divImg.setAttribute("src", data.tracks.items[i].album.images[0].url)
                         divImg.setAttribute("class", "pic")
@@ -100,8 +101,8 @@
                         text.innerHTML = "Avaliablle : " + data.tracks.items[i].album.available_markets.length + " coutries"
                         divCol.appendChild(text.cloneNode(true))
                         divRow1.appendChild(divCol.cloneNode(true))
-                        break
-                    } else if (i === data.tracks.items.length - 1) {
+                        check = !check
+                    } else if ((i === data.tracks.items.length - 1) && check) {
                         console.log("Not Found")
                         h.innerHTML = "Not Found"
                         divRow1.appendChild(h.cloneNode(true))
