@@ -101,7 +101,7 @@
                         divCol.appendChild(text.cloneNode(true))
                         divRow1.appendChild(divCol.cloneNode(true))
                         break
-                    } else {
+                    } else if (i === data.tracks.items.length - 1) {
                         console.log("Not Found")
                         h.innerHTML = "Not Found"
                         divRow1.appendChild(h.cloneNode(true))
