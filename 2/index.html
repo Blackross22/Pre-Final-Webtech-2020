@@ -26,8 +26,16 @@
 
 <body>
     <div id="con" class="container">
-        <div class="row">
-
+        <div class="row mb-5">
+            <div class="col">
+                <div class="row">
+                    <h1>ระบุคำค้นหา</h1>
+                </div>
+                <div class="row">
+                    <input class="form-control mb-1" type="text">
+                    <button onclick="sec()" type="button" class="btn btn-outline-primary">ค้นหา</button>
+                </div>
+            </div>
         </div>
         <div id="mic" class="row">
 
@@ -39,6 +47,70 @@
         json = fetch(requestURL).then((res) => {
             return res.json()
         })
+        function sec() {
+            json.then((data) => {
+                let name = document.querySelector('input').value
+                let divRow1 = document.createElement('div')
+                let con = document.querySelector('#mic')
+                let h = document.createElement('div')
+                let text = document.createElement('label')
+                let all = document.querySelector("#con")
+                all.removeChild(con)
+                let newRow = document.createElement('div')
+                newRow.setAttribute("class", "row")
+                newRow.setAttribute("id", "mic")
+                all.appendChild(newRow.cloneNode(true))
+                let nEwcon = document.querySelector('#mic')
+                h.setAttribute("class", "h3")
+                divRow1.setAttribute("class", "row")
+                for (let i = 0; i < data.tracks.items.length; i++) {
+                    if (name === data.tracks.items[i].album.name) {
+                        console.log(data.tracks.items[i].album.name)
+                        let divCol = document.createElement('div')
+                        divCol.setAttribute("class", "col-5 ml-5 border border-dark px-0")
+                        divImg = document.createElement('img')
+                        divImg.setAttribute("src", data.tracks.items[i].album.images[0].url)
+                        divImg.setAttribute("class", "pic")
+                        divCol.appendChild(divImg.cloneNode(true))
+                        h.innerHTML = data.tracks.items[i].album.name
+                        divCol.appendChild(h.cloneNode(true))
+                        text.innerHTML = "Artists : " + data.tracks.items[i].album.artists[0].name
+                        divCol.appendChild(text.cloneNode(true))
+                        text.innerHTML = "Release date : " + data.tracks.items[i].album.release_date
+                        divCol.appendChild(text.cloneNode(true))
+                        text.innerHTML = "Avaliablle : " + data.tracks.items[i].album.available_markets.length + " coutries"
+                        divCol.appendChild(text.cloneNode(true))
+                        divRow1.appendChild(divCol.cloneNode(true))
+                        break
+                    }
+                    else if (name === data.tracks.items[i].album.artists[0].name) {
+                        console.log(data.tracks.items[i].album.artists[0].name)
+                        let divCol = document.createElement('div')
+                        divCol.setAttribute("class", "col-5 ml-5 border border-dark px-0")
+                        divImg = document.createElement('img')
+                        divImg.setAttribute("src", data.tracks.items[i].album.images[0].url)
+                        divImg.setAttribute("class", "pic")
+                        divCol.appendChild(divImg.cloneNode(true))
+                        h.innerHTML = data.tracks.items[i].album.name
+                        divCol.appendChild(h.cloneNode(true))
+                        text.innerHTML = "Artists : " + data.tracks.items[i].album.artists[0].name
+                        divCol.appendChild(text.cloneNode(true))
+                        text.innerHTML = "Release date : " + data.tracks.items[i].album.release_date
+                        divCol.appendChild(text.cloneNode(true))
+                        text.innerHTML = "Avaliablle : " + data.tracks.items[i].album.available_markets.length + " coutries"
+                        divCol.appendChild(text.cloneNode(true))
+                        divRow1.appendChild(divCol.cloneNode(true))
+                        break
+                    } else {
+                        console.log("Not Found")
+                        h.innerHTML = "Not Found"
+                        divRow1.appendChild(h.cloneNode(true))
+                        break
+                    }
+                }
+                nEwcon.appendChild(divRow1.cloneNode(true))
+            })
+        }
         json.then((data) => {
             let divRow1 = document.createElement('div')
             let con = document.querySelector('#mic')
